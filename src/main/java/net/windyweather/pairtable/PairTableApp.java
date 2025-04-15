@@ -11,7 +11,7 @@ public class PairTableApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PairTableApp.class.getResource("pairtable-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 350);
+        Scene scene = new Scene(fxmlLoader.load(), 450, 380);
         stage.setTitle("Pair Table Test");
         stage.setScene(scene);
         stage.show();

@@ -57,6 +57,7 @@ public class PairTableController {
             }
         });
 
+
         tcStatus.setCellValueFactory( new Callback<TableColumn.CellDataFeatures<SyncFilesPair, String>, ObservableValue<String>>() {
             public ObservableValue<String> call( TableColumn.CellDataFeatures<SyncFilesPair,
                     String> p) {
@@ -65,6 +66,11 @@ public class PairTableController {
             }
         });
 
+        /*
+            Right Justify the Status column
+         */
+        tcStatus.setStyle( "-fx-alignment: CENTER-RIGHT;");
+
     }
 
 
@@ -72,7 +78,8 @@ public class PairTableController {
     Load the list with some pair names/status
  */
     private void SomeTestPairData() {
-        pairObservableList.setAll(
+
+        pairObservableList.addAll(
                 new SyncFilesPair( "1st Pair", "none"),
                 new SyncFilesPair( "2nd Pair", "none"),
                 new SyncFilesPair( "3rd Pair", "none"),
@@ -97,5 +104,17 @@ public class PairTableController {
         printSysOut("OnRemovePairs - remove all the pairs");
         pairObservableList.clear();
         SetStatus("Pairs Removed");
+    }
+
+    public void OnPairToTop(ActionEvent actionEvent) {
+    }
+
+    public void OnPairUpOne(ActionEvent actionEvent) {
+    }
+
+    public void OnPairDownOne(ActionEvent actionEvent) {
+    }
+
+    public void OnPairToBottom(ActionEvent actionEvent) {
     }
 }
