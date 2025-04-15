@@ -84,6 +84,7 @@ public class PairTableController {
                 new SyncFilesPair( "9th Pair", "none"),
                 new SyncFilesPair( "10th Pair", "none")
         );
+        tableView.setItems( pairObservableList);
     }
 
         public void OnAddPairs(ActionEvent actionEvent) {
