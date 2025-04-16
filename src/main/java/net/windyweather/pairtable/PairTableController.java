@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-
-import java.util.Set;
 
 public class PairTableController {
     public TableView<SyncFilesPair> tableView;
@@ -27,7 +24,7 @@ public class PairTableController {
         System.out.println(str);
     }
 
-    void SetStatus( String sts ) {
+    void setStatus(String sts ) {
         lblStatus.setText( sts );
     }
     /*
@@ -97,16 +94,46 @@ public class PairTableController {
         public void OnAddPairs(ActionEvent actionEvent) {
             printSysOut("OnAddPairs - add some pairs");
             SomeTestPairData();
-            SetStatus("Pairs Added");
+            setStatus("Pairs Added");
     }
 
     public void OnRemovePairs(ActionEvent actionEvent) {
         printSysOut("OnRemovePairs - remove all the pairs");
         pairObservableList.clear();
-        SetStatus("Pairs Removed");
+        setStatus("Pairs Removed");
     }
 
+    /*
+Make sure item of interest is selected and visible
+*/
+    private void SelectAndFocusIndex( int idx ) {
+        tableView.getSelectionModel().select(idx);
+        if (!tableView.isVisible() ){
+            tableView.getFocusModel().focus(idx);
+            tableView.scrollTo( idx);
+        }
+        tableView.scrollTo( idx);
+    }
+
+
     public void OnPairToTop(ActionEvent actionEvent) {
+        int idx = tableView.getSelectionModel().getSelectedIndex();
+        printSysOut(String.format("OnPairToTop - idx %d", idx));
+        if ( idx < 0 ) {
+            setStatus("Select an item first");
+            return;
+        }
+        if ( idx == 0 ) {
+            setStatus( "Pair is already at the top of the list");
+            printSysOut("OnPairToTop - already at top");
+            return;
+        }
+        printSysOut(String.format("OnPairToTop - moving idx %d to top", idx ) );
+        SyncFilesPair pair = pairObservableList.get(idx);
+        pairObservableList.remove(idx);
+        pairObservableList.addFirst(pair );
+        SelectAndFocusIndex( 0);
+        setStatus("Pair moved to top of list");
     }
 
     public void OnPairUpOne(ActionEvent actionEvent) {
